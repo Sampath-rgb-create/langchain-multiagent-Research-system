@@ -15,3 +15,5 @@ requests
 lxml
 
 python-dotenv
+
+rich>=13.7.0
