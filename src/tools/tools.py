@@ -11,7 +11,6 @@ import re
 
 
 load_dotenv()
-tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 @tool
 def web_search(query: str) -> str:
     """
@@ -23,8 +22,12 @@ def web_search(query: str) -> str:
     Returns:
         str: The search results.
     """
-
-    results = tavily.search(query=query,max_results=2)
+    api_key = os.getenv("TAVILY_API_KEY")
+    if not api_key:
+        return "Error: TAVILY_API_KEY is not set. Please provide a Tavily API key."
+    
+    client = TavilyClient(api_key=api_key)
+    results = client.search(query=query, max_results=2)
 
     out = []
 
